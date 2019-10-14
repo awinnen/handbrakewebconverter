@@ -37,25 +37,6 @@ app.get('/jobs/:id/:preset/:filename', function (req, res, next) {
 	return res.download(path.resolve(getJobDirectory(job), preset, filename));
 });
 
-app.get('/presets', (req, res, next) => {
-	handbrake.exec({ "preset-list": true }, (err, stdout, stderr) => {
-		if (err) {
-			return next("Error generating Presets", stderr, 500);
-		}
-
-		const outputStr = stdout.match(/^\s+$/gm) ? stderr : stdout;
-		const regEx = /^ {4}(\w[\w ]*)$/gm;
-		console.log(outputStr);
-		let match = regEx.exec(outputStr);
-		const result = [];
-		while (match !== null) {
-			result.push(match[1]);
-			match = regEx.exec(outputStr);
-		}
-		return res.json(result);
-	})
-});
-
 app.post("/convert", (req, res, next) => {
 	if (Object.keys(req.files).length === 0) {
 		return next(createError('No files were uploaded.', null, 400));
