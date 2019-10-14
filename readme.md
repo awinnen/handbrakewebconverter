@@ -13,4 +13,4 @@ Easy to use video converter.
 |/presets      | List all available presets
 
 # How to convert
-![Example using POSTMAN](../POST%20example.png)
+![Example using POSTMAN](POST%20example.png)
